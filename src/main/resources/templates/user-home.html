@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="'viewport"content="width=device-width, initial-scale=1.0">
+    <title>website desgin</title>
+
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/homestyle.css}">
+    <link rel="stylesheet" th:href="@{/css/latestproductstyle.css}">
+
+
+
+</head>
+<body>
+<header>
+    <div class="header-1">
+        <a href="#" class="logo"><i class="fas fa-shopping-basket"></i>groco</a>
+    </div>
+    <div class="header-2">
+        <div id="menu-bar" class="fas fa-bars"></div>
+        <nav class="navbar">
+            <a href="#home">HOME</a>
+            <a th:href="@{/about}">ABOUT US</a>
+            <a href="#category">CATEGORY</a>
+            <a href="#product">PRODUCTS</a>
+
+        </nav>
+        <div class="icons">
+            <a th:href="@{/usercart}" class="fas fa-shopping-cart"></a>
+            <a th:href="@{/logout}" class="fas fa-sign-out-alt"></a>
+
+        </div>
+    </div>
+</header>
+
+
+<section class="home" id="home">
+    <div class="image">
+        <img src="images/homeheart.png">
+    </div>
+    <div class="content">
+        <span>fresh and organic</span>
+        <h3>your daily need products</h3>
+        <h3>grab your items!!</h3>
+    </div>
+</section>
+
+
+
+<section class="banner-container">
+    <div class="banner">
+        <img src="images/limit1.jpg" alt="">
+        <div class="content">
+            <h3>special offer</h3>
+            <p>upto 45% off</p>
+            <p>for vegetables </p>
+            <a th:href="@{/vegetables}" class="btn">check out</a>
+        </div>
+    </div>
+
+    <div class="banner">
+        <img src="images/limit2.jpg" alt="">
+        <div class="content">
+            <h3>special offer</h3>
+            <p>upto 50% off</p>
+            <p>for fruits</p>
+            <a th:href="@{/fruits}" class="btn">check out</a>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="category" id="category">
+    <h1 class="heading">shop by <span>category</span></h1>
+    <div class="box-container">
+        <div class="box">
+            <h3>vegetables</h3>
+            <p>upto 50% off</p>
+            <img src="images/veg.jpg" alt="">
+            <a th:href="@{/vegetables}" class="btn">Shop Now</a>
+        </div>
+        <div class="box">
+            <h3>meat</h3>
+            <p>upto 35% off</p>
+            <img src="images/meat.png" alt="">
+            <a th:href="@{/meat}" class="btn">Shop Now</a>
+        </div>
+        <div class="box">
+            <h3>fruits</h3>
+            <p>upto 15% off</p>
+            <img src="images/fruits.png" alt="">
+            <a th:href="@{/fruits}" class="btn">Shop Now</a>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="product" id="product">
+    <h1 class="heading">Latest <span>Products</span></h1>
+    <div class="grid-container">
+        <!-- Loop through each product -->
+        <div th:each="product : ${products}" class="product-box">
+            <img th:src="${product.image}" alt="Product Image">
+            <h3 th:text="${product.name}"></h3>
+            <p th:text="'Price: Rs.' + ${product.price}"></p>
+            <form th:action="@{/products/add-to-cart}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}" />
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- deal section starts  -->
+
+<section class="deal" id="deal">
+    <div class="content">
+        <h3 class="title">deal of the day</h3>
+        <p>Hurry up!! Grab your products this deal ends in </p>
+        <div class="count-down">
+            <div class="box">
+                <h3 id="day">00</h3>
+                <span>day</span>
+            </div>
+            <div class="box">
+                <h3 id="hour">00</h3>
+                <span>hour</span>
+            </div>
+            <div class="box">
+                <h3 id="minute">00</h3>
+                <span>minute</span>
+            </div>
+            <div class="box">
+                <h3 id="second">00</h3>
+                <span>second</span>
+            </div>
+        </div>
+        <a href="#product" class="btn">check the deal</a>
+    </div>
+</section>
+
+<!-- deal section ends  -->
+
+
+<!-- footer section starts -->
+
+<section class="footer">
+    <div class="box-container">
+        <div class="box">
+            <a href="#" class="logo"><i class="fas fa-shopping-basket"></i>groco</a>
+            <div class="share">
+                <a href="#" class="btn fab fa-facebook-f"></a>
+                <a href="#" class="btn fab fa-twitter"></a>
+                <a href="#" class="btn fab fa-instagram"></a>
+            </div>
+        </div>
+        <div class="box">
+            <h3>our location</h3>
+            <div class="links">
+                <a>India</a>
+                <a>USA</a>
+                <a>Dubai</a>
+                <a>UK</a>
+            </div>
+        </div>
+        <div class="box">
+            <h3>quick links</h3>
+            <div class="links">
+                <a href="#home">home</a>
+                <a th:href="@{/about}">about</a>
+                <a href="#category">category</a>
+                <a href="#product">products</a>
+                <a href="#deal">deals</a>
+            </div>
+        </div>
+        <div class="box">
+            <h3>download app</h3>
+            <div class="links">
+                <a href="#">google play</a>
+                <a href="#">app store</a>
+            </div>
+        </div>
+    </div>
+    <h1 class="credit"> all rights reserved! </h1>
+</section>
+<!-- footer section ends -->
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+
+</html>
+

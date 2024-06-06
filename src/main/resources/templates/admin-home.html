@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Home</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+        h2 {
+            margin-top: 30px;
+            color: #343a40;
+        }
+        .btn-primary {
+            margin-bottom: 20px;
+        }
+        .table thead th {
+            background-color: #343a40;
+            color: white;
+        }
+        .table tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        .btn-info {
+            margin-right: 10px;
+        }
+        .text {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .text:hover {
+            text-decoration: underline;
+        }
+        img {
+            border-radius: 5px;
+        }
+        hr {
+            border-top: 2px solid #343a40;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome Admin!</h1>
+    <p>Hello, <span th:text="${user.fullname}"></span> (Admin)</p>
+
+    <!-- Add Product Section -->
+    <a class="btn btn-primary" th:href="@{/add-product}">Add Product</a>
+
+    <!-- Product Management Section -->
+    <hr/>
+    <h2>Manage Products</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over products and display them -->
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category}"></td>
+            <td>
+                <img th:src="${product.image}" alt="Product Image" style="max-width: 100px; max-height: 100px;">
+            </td>
+            <td>
+                <a th:href="@{/edit-product/{id}(id=${product.id})}" class="btn btn-info">Edit</a>
+                <form th:action="@{/delete-product/{id}(id=${product.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Logout Button -->
+    <a th:href="@{/logout}" class="text">Logout</a>
+</div>
+</body>
+</html>

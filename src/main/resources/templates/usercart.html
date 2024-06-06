@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Cart</title>
+    <link rel="stylesheet" th:href="@{/css/cartstyle.css}">
+</head>
+<body>
+
+<div>
+    <h1 th:if="${user != null}" th:text="'Welcome, ' + ${user.fullname} + '!'"></h1>
+</div>
+<h2>Your Cart</h2>
+<div th:if="${cart != null && not #lists.isEmpty(cart.items)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Image</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cart.items}">
+            <td th:text="${item.product.name}"></td>
+            <td><img th:src="${item.product.image}" alt="Product Image" width="50"></td>
+            <td>
+                <form th:action="@{/products/update-cart}" method="post">
+                    <input type="hidden" name="productId" th:value="${item.product.id}" />
+                    <input type="number" name="quantity" th:value="${item.quantity}" min="1" required />
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            <td th:text="'Rs.' + ${item.product.price * item.quantity}"></td>
+            <td>
+                <form th:action="@{/products/delete-from-cart}" method="post">
+                    <input type="hidden" name="productId" th:value="${item.product.id}" />
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Total Price: Rs. <span th:text="${totalPrice}"></span></h3>
+    <!-- Checkout Button -->
+    <button id="checkout-button">BUY</button>
+</div>
+<div th:if="${cart == null || #lists.isEmpty(cart.items)}">
+    <p>Your cart is empty.</p>
+</div>
+<a th:href="@{/user-home}">Back to Home</a><br>
+
+
+
+<script>
+    document.getElementById('checkout-button').addEventListener('click', function() {
+        window.location.href = "/payment";
+    });
+
+
+
+</script>
+
+</body>
+</html>

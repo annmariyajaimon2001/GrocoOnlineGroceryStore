@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Groco - Your Ultimate Online Grocery Store</title>
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f7f7f7;
+    color: #333;
+}
+
+header {
+    background: #27ae60;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+section {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #27ae60;
+    margin-top: 0;
+}
+
+p {
+    line-height: 1.6;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+footer {
+    background: #27ae60;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    section {
+        padding: 15px;
+        margin: 15px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+}
+
+    </style>
+
+</head>
+<body>
+<header>
+    <h1>Welcome to Groco - Your Ultimate Online Grocery Store</h1>
+</header>
+
+<section>
+    <h2>Our Story</h2>
+    <p>Groco was founded with a simple yet powerful idea: to redefine the way people shop for groceries. We understand the challenges of modern life – busy schedules, diverse dietary needs, and the desire for quality products. Our goal is to provide fresh and top quality products to our users under reasonable rate.</p>
+</section>
+
+<section>
+    <h2>What We Offer</h2>
+    <p>Explore a vast selection of products carefully curated to meet your needs. From organic fruits and vegetables to premium meats, dairy, and bakery items, we source from trusted suppliers to ensure freshness and quality. Discover international flavors, health-conscious options, and household essentials – all conveniently categorized for easy browsing.</p>
+</section>
+
+<section>
+    <h2>Why Choose Groco?</h2>
+    <ul>
+        <li><strong>Convenience:</strong> Shop anytime, anywhere with our user-friendly website and mobile app. Say goodbye to crowded aisles and long checkout lines.</li>
+        <li><strong>Quality Assurance:</strong> We are committed to offering products that meet the highest standards. Every item is handpicked and inspected to ensure freshness and taste.</li>
+        <li><strong>Variety:</strong> Enjoy a diverse range of products, including local favorites and international delicacies. Explore new flavors and discover old classics.</li>
+        <li><strong>Personalized Experience:</strong> Tailor your shopping experience with personalized recommendations and easy reordering of your favorite items.</li>
+        <li><strong>Prompt Delivery:</strong> Receive your groceries at your preferred time slot. We offer flexible delivery options to suit your schedule.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Our Commitment</h2>
+    <p>At Groco, we prioritize customer satisfaction and strive for excellence in everything we do. We value transparency, integrity, and community. Our team is dedicated to providing exceptional service and building lasting relationships with our customers.</p>
+</section>
+
+<section>
+    <h2>Get Started</h2>
+    <p>Join the Groco community today and experience grocery shopping like never before. Create an account to unlock exclusive benefits, track your orders, and receive updates on promotions and new arrivals.</p>
+</section><br>
+
+
+
+<footer>
+    <p><strong>Groco – Fresh. Convenient. Delivered. Start shopping now!</strong></p>
+
+    <a th:href="@{/user-home}">Back to Home</a>
+</footer>
+</body>
+</html>

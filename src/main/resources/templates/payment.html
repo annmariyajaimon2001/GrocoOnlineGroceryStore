@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" th:href="@{/css/paymentstyle.css}">
+</head>
+<body>
+<header>
+    <h1>Payment</h1>
+</header>
+<main>
+    <form action="/payment/submit" method="post" class="payment-form" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="deliveryAddress">Delivery Address:</label>
+            <input type="text" id="deliveryAddress" name="deliveryAddress" required>
+        </div>
+        <div class="form-group">
+            <label for="paymentMethod">Payment Method:</label>
+            <select id="paymentMethod" name="paymentMethod" required>
+                <option value="">select</option>
+                <option value="netbanking">Net Banking</option>
+                <option value="cod">Cash on Delivery</option>
+                <option value="creditCard">Credit Card</option>
+                <option value="debitCard">Debit Card</option>
+            </select>
+        </div>
+        <div id="paymentDetails" class="form-group" style="display: none;">
+            <div id="cardDetails" style="display: none;">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number:</label>
+                    <input type="text" id="cardNumber" name="cardNumber">
+                </div>
+                <div class="form-group">
+                    <label for="cardExpiry">Expiry Date:</label>
+                    <input type="text" id="cardExpiry" name="cardExpiry" placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                    <label for="cardCVV">CVV:</label>
+                    <input type="text" id="cardCVV" name="cardCVV">
+                </div>
+            </div>
+            <div id="upiDetails" style="display: none;">
+                <div class="form-group">
+                    <label for="upiId">UPI ID:</label>
+                    <input type="text" id="upiId" name="upiId">
+                </div>
+            </div>
+        </div>
+        <div id="errorMessage" style="color: red; display: none;">Please fill out all fields</div>
+        <div id="upiErrorMessage" style="color: red; display: none;">UPI ID must contain "@"</div>
+        <button type="submit" class="submit-button">Pay Now</button>
+    </form>
+    <a th:href="@{/usercart}">Back to Cart</a><br>
+</main>
+<script>
+    document.getElementById('paymentMethod').addEventListener('change', function() {
+        var paymentMethod = this.value;
+        var paymentDetails = document.getElementById('paymentDetails');
+        var cardDetails = document.getElementById('cardDetails');
+        var upiDetails = document.getElementById('upiDetails');
+        var errorMessage = document.getElementById('errorMessage');
+        var upiErrorMessage = document.getElementById('upiErrorMessage');
+
+        paymentDetails.style.display = 'none';
+        cardDetails.style.display = 'none';
+        upiDetails.style.display = 'none';
+         errorMessage.style.display = 'none';
+        upiErrorMessage.style.display = 'none';
+
+        if (paymentMethod === 'creditCard' || paymentMethod === 'debitCard') {
+            paymentDetails.style.display = 'block';
+            cardDetails.style.display = 'block';
+        } else if (paymentMethod === 'netbanking') {
+            paymentDetails.style.display = 'block';
+            upiDetails.style.display = 'block';
+        }
+    });
+
+    function validateForm() {
+        var paymentMethod = document.getElementById('paymentMethod').value;
+        var errorMessage = document.getElementById('errorMessage');
+        var upiErrorMessage = document.getElementById('upiErrorMessage');
+        var isValid = true;
+
+        if (paymentMethod === "creditCard" || paymentMethod === "debitCard") {
+            var cardNumber = document.getElementById('cardNumber').value.trim();
+            var cardExpiry = document.getElementById('cardExpiry').value.trim();
+            var cardCVV = document.getElementById('cardCVV').value.trim();
+            var cardNumberRegex = /^(\d{4} \d{4} \d{4} \d{4})$/;
+            var cardExpiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            var cardCVVRegex = /^\d{3}$/;
+
+            if (!cardNumber || !cardExpiry || !cardCVV) {
+                isValid = false;
+                errorMessage.style.display = 'block';
+            }
+            else if (!cardNumberRegex.test(cardNumber)) {
+                isValid = false;
+                errorMessage.innerText = 'Card number must be in the format XXXX XXXX XXXX XXXX';
+                errorMessage.style.display = 'block';
+            } else if (!cardExpiryRegex.test(cardExpiry)) {
+                isValid = false;
+                errorMessage.innerText = 'Expiry date must be in the format MM/YY';
+                errorMessage.style.display = 'block';
+            } else if (!cardCVVRegex.test(cardCVV)) {
+                isValid = false;
+                errorMessage.innerText = 'CVV must be 3 digits';
+                errorMessage.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        }
+        else if (paymentMethod === "netbanking") {
+            var upiId = document.getElementById('upiId').value.trim();
+
+            if (!upiId) {
+                isValid = false;
+                errorMessage.style.display = 'block';
+                upiErrorMessage.style.display = 'none';
+            }
+            else if (!upiId.includes('@')) {
+                upiErrorMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+                isValid = false;
+            }
+
+        }
+
+        if (isValid) {
+            errorMessage.style.display = 'none';
+            upiErrorMessage.style.display = 'none';
+        } else if (!upiErrorMessage.style.display === 'block') {
+            errorMessage.style.display = 'block';
+        }
+
+        return isValid;
+    }
+</script>
+</body>
+</html>
